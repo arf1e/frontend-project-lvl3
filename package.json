@@ -4,7 +4,7 @@
   "description": "[![Actions Status](https://github.com/arf1e/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/arf1e/frontend-project-lvl3/actions)",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --colors"
+    "test": "jest --colors --passWithNoTests"
   },
   "repository": {
     "type": "git",
