@@ -1,5 +1,7 @@
+import i18next from 'i18next';
 import createWatchedState from './view';
 import validate from './validate';
+import ru from './locales/ru';
 import FORM_STAGES from './utils';
 
 const app = () => {
@@ -32,12 +34,11 @@ const app = () => {
     const url = e.target.url.value;
     validate(url, watchedState.feeds)
       .then((data) => {
-        // Success
         watchedState.feeds = [...watchedState.feeds, data.url];
         watchedState.form.isValid = true;
         watchedState.form.stage = FORM_STAGES.success;
         watchedState.form.error = null;
-        watchedState.message = 'RSS Успешно загружен';
+        watchedState.message = i18next.t('successMessages.urlLoaded');
       })
       .catch((error) => {
         watchedState.message = null;
@@ -48,4 +49,12 @@ const app = () => {
   });
 };
 
-export default app;
+export default i18next
+  .init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  })
+  .then(app);
