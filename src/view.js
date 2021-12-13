@@ -1,9 +1,22 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
-import FORM_STAGES from './utils';
+import FORM_STAGES from './constants';
+import domHelpers, { setList } from './dom';
 
 const createWatchedState = (state, elements) => {
-  const { input, feedback, submitBtn } = elements;
+  // prettier-ignore
+  const {
+    input,
+    feedback,
+    submitBtn,
+    feedsContainer,
+    postsContainer,
+  } = elements;
+
+  const resetAndFocusOnInput = () => {
+    input.value = '';
+    input.focus();
+  };
 
   const setIsFormValid = (isValid, prevIsValid) => {
     if (isValid === prevIsValid) return;
@@ -39,11 +52,6 @@ const createWatchedState = (state, elements) => {
     feedback.classList.add('text-danger');
   };
 
-  const setFeeds = () => {
-    input.value = '';
-    input.focus();
-  };
-
   const setMessage = (value) => {
     if (value === null) {
       feedback.classList.remove('text-success');
@@ -65,11 +73,15 @@ const createWatchedState = (state, elements) => {
       case 'form.isValid':
         setIsFormValid(value, prevValue);
         break;
-      case 'feeds':
-        setFeeds(value);
-        break;
       case 'message':
         setMessage(value);
+        break;
+      case 'feeds':
+        setList(value, prevValue, i18next.t('titles.feeds'), feedsContainer, domHelpers.composeFeedElement);
+        resetAndFocusOnInput();
+        break;
+      case 'posts':
+        setList(value, prevValue, i18next.t('titles.posts'), postsContainer, domHelpers.composePostElement);
         break;
       default:
         console.error(i18next.t('errors.noSuchPath', { path }));
