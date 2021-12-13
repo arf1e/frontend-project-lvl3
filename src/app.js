@@ -1,8 +1,11 @@
 import i18next from 'i18next';
+import proxyClient from './client';
 import createWatchedState from './view';
 import validate from './validate';
 import ru from './locales/ru';
-import FORM_STAGES from './utils';
+import FORM_STAGES from './constants';
+import parseRssFeed from './parser';
+import { getElements } from './dom';
 
 const app = () => {
   const state = {
@@ -15,27 +18,36 @@ const app = () => {
       error: null,
     },
   };
-
-  const form = document.querySelector('.rss-form');
-  const input = form.querySelector('#url-input');
-  const feedback = document.querySelector('.feedback');
-  const submitBtn = form.querySelector('button[type="submit"]');
-
+  const elements = getElements();
+  const { form } = elements;
   const watchedState = createWatchedState(state, {
-    form,
-    input,
-    feedback,
-    submitBtn,
+    ...elements,
   });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    watchedState.form.stage = FORM_STAGES.submitting;
     const url = e.target.url.value;
+    watchedState.form.stage = FORM_STAGES.submitting;
     validate(url, watchedState.feeds)
       .then((data) => {
-        watchedState.feeds = [...watchedState.feeds, data.url];
         watchedState.form.isValid = true;
+        return data.url;
+      })
+      .then((requestedUrl) => proxyClient.get(requestedUrl))
+      .then((res) => {
+        if (res.status !== 200) throw new Error(i18next.t('errors.default'));
+        const stream = res.data.contents;
+        return stream;
+      })
+      .then((rss) => {
+        const { feed, posts } = parseRssFeed(rss);
+        const feedExists = watchedState.feeds.find((element) => element.title === feed.title);
+        if (feedExists) throw new Error(i18next.t('errors.urlAlreadyExists'));
+        return { feed, posts };
+      })
+      .then(({ feed, posts }) => {
+        watchedState.feeds = [feed, ...watchedState.feeds];
+        watchedState.posts = [...posts, ...watchedState.posts];
         watchedState.form.stage = FORM_STAGES.success;
         watchedState.form.error = null;
         watchedState.message = i18next.t('successMessages.urlLoaded');
