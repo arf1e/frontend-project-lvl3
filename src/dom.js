@@ -40,6 +40,7 @@ export const setList = (value, prevValue, title, container, composeFn) => {
   }
 
   const list = container.querySelector('ul');
+  list.innerHTML = '';
   value.forEach((element) => {
     const node = composeFn(element);
     list.append(node);

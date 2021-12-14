@@ -5,4 +5,6 @@ const FORM_STAGES = {
   success: 'success',
 };
 
+export const FEED_UPDATE_TIMER = 5000;
+
 export default FORM_STAGES;
