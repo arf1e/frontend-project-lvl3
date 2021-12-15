@@ -7,6 +7,7 @@ export default {
       requestError: 'Запрос на ресурс завершился с ошибкой',
       default: 'Что-то пошло не так',
       parserError: 'Ресурс не содержит валидный RSS',
+      networkError: 'Ошибка сети',
     },
     successMessages: {
       urlLoaded: 'RSS Успешно загружен',
