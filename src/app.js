@@ -58,7 +58,7 @@ const app = () => {
       visitedPosts: [],
     },
   };
-  const elements = getElements();
+  const elements = getElements(document);
   const { form } = elements;
 
   const watchedState = createWatchedState(state, {
