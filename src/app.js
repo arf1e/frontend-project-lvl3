@@ -37,14 +37,6 @@ const setFeedUpdater = (watchedState, updatePosts, setError) => {
 };
 
 const app = () => {
-  i18next.init({
-    lng: 'ru',
-    debug: true,
-    resources: {
-      ru,
-    },
-  });
-
   const state = {
     feeds: [],
     posts: [],
@@ -112,4 +104,18 @@ const app = () => {
   });
 };
 
-export default app;
+const init = () => {
+  i18next.init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    app();
+  });
+};
+
+export default init;
