@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 export const getElements = () => {
-  const form = document.querySelector('.rss-form');
+  const form = document.querySelector('form');
   const input = form.querySelector('#url-input');
   const feedback = document.querySelector('.feedback');
   const submitBtn = form.querySelector('button[type="submit"]');
