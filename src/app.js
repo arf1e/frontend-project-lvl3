@@ -46,9 +46,13 @@ const app = () => {
       stage: FORM_STAGES.idle,
       error: null,
     },
+    ui: {
+      visitedPosts: [],
+    },
   };
   const elements = getElements();
   const { form } = elements;
+
   const watchedState = createWatchedState(state, {
     ...elements,
   });
@@ -56,6 +60,7 @@ const app = () => {
   const updatePosts = (posts) => {
     watchedState.posts = [...posts, ...watchedState.posts];
   };
+
   setFeedUpdater(watchedState, updatePosts);
 
   form.addEventListener('submit', (e) => {

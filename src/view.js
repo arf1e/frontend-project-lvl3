@@ -1,4 +1,5 @@
 import onChange from 'on-change';
+import _ from 'lodash';
 import i18next from 'i18next';
 import FORM_STAGES from './constants';
 import domHelpers, { setList } from './dom';
@@ -62,7 +63,15 @@ const createWatchedState = (state, elements) => {
     feedback.textContent = value;
   };
 
-  return onChange(state, (path, value, prevValue) => {
+  const setPostVisited = (value) => {
+    const id = _.last(value);
+    const container = document.querySelector(`.posts .${id}`);
+    const a = container.querySelector('a');
+    a.classList.add('fw-normal');
+    a.classList.remove('fw-bold');
+  };
+
+  const watchedState = onChange(state, (path, value, prevValue) => {
     switch (path) {
       case 'form.stage':
         setStageChange(value, prevValue);
@@ -81,11 +90,23 @@ const createWatchedState = (state, elements) => {
         resetAndFocusOnInput();
         break;
       case 'posts':
-        setList(value, prevValue, i18next.t('titles.posts'), postsContainer, domHelpers.composePostElement);
+        setList(
+          value,
+          prevValue,
+          i18next.t('titles.posts'),
+          postsContainer,
+          domHelpers.composePostElement,
+          watchedState,
+        );
+        break;
+      case 'ui.visitedPosts':
+        setPostVisited(value);
         break;
       default:
         console.error(i18next.t('errors.noSuchPath', { path }));
     }
   });
+
+  return watchedState;
 };
 export default createWatchedState;
