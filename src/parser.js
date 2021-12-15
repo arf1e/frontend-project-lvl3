@@ -5,11 +5,13 @@ const parsePost = (item, feedId) => {
   const title = item.querySelector('title').textContent;
   const description = item.querySelector('description').textContent;
   const link = item.querySelector('link').textContent;
+  const id = _.uniqueId('post_');
   return {
     title,
     description,
     link,
     feedId,
+    id,
   };
 };
 
