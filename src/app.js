@@ -8,7 +8,7 @@ import FORM_STAGES, { FEED_UPDATE_TIMER } from './constants';
 import parseRssFeed from './parser';
 import { getElements } from './dom';
 
-const setFeedUpdater = (watchedState, updatePosts) => {
+const setFeedUpdater = (watchedState, updatePosts, setError) => {
   const timeoutId = setTimeout(() => {
     const { feeds, posts } = watchedState;
 
@@ -30,13 +30,21 @@ const setFeedUpdater = (watchedState, updatePosts) => {
         setFeedUpdater(watchedState, updatePosts);
       })
       .catch(() => {
-        // TODO: Handle error
+        setError(i18next.t('errors.networkError'));
         clearTimeout(timeoutId);
       });
   }, FEED_UPDATE_TIMER);
 };
 
 const app = () => {
+  i18next.init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  });
+
   const state = {
     feeds: [],
     posts: [],
@@ -50,7 +58,7 @@ const app = () => {
       visitedPosts: [],
     },
   };
-  const elements = getElements();
+  const elements = getElements(document);
   const { form } = elements;
 
   const watchedState = createWatchedState(state, {
@@ -61,7 +69,14 @@ const app = () => {
     watchedState.posts = [...posts, ...watchedState.posts];
   };
 
-  setFeedUpdater(watchedState, updatePosts);
+  const setError = (error) => {
+    watchedState.message = null;
+    watchedState.form.error = error;
+    watchedState.form.isValid = false;
+    watchedState.form.stage = FORM_STAGES.errored;
+  };
+
+  setFeedUpdater(watchedState, updatePosts, setError);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -92,20 +107,9 @@ const app = () => {
         watchedState.message = i18next.t('successMessages.urlLoaded');
       })
       .catch((error) => {
-        watchedState.message = null;
-        watchedState.form.error = error.message;
-        watchedState.form.isValid = false;
-        watchedState.form.stage = FORM_STAGES.errored;
+        setError(error.message);
       });
   });
 };
 
-export default i18next
-  .init({
-    lng: 'ru',
-    debug: true,
-    resources: {
-      ru,
-    },
-  })
-  .then(app);
+export default app;
