@@ -67,16 +67,13 @@ const app = (state) => {
 };
 
 export default (state) => {
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('loaded');
-    i18next
-      .init({
-        lng: 'ru',
-        debug: true,
-        resources: {
-          ru,
-        },
-      })
-      .then(app(state));
-  });
+  i18next
+    .init({
+      lng: 'ru',
+      debug: true,
+      resources: {
+        ru,
+      },
+    })
+    .then(() => app(state));
 };
