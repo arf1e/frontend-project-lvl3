@@ -2,6 +2,7 @@ import createWatchedState from './view';
 import validate from './validate';
 import FORM_STAGES from './constants';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
+import init from './init';
 
 const getElements = () => {
   const elements = {
@@ -84,4 +85,6 @@ const app = () => {
   });
 };
 
-export default app;
+const handleApp = () => init().then(app);
+
+export default handleApp;
