@@ -32,13 +32,22 @@ const createWatchedState = (state, elements) => {
     if (stage === prevStage) return;
     switch (stage) {
       case FORM_STAGES.errored:
-        [input, submitBtn].forEach((elt) => elt.removeAttribute('disabled'));
+        [input, submitBtn].forEach((elt) => {
+          elt.removeAttribute('disabled');
+          elt.removeAttribute('readonly');
+        });
         break;
       case FORM_STAGES.submitting:
-        [input, submitBtn].forEach((elt) => elt.setAttribute('disabled', 'disabled'));
+        [input, submitBtn].forEach((elt) => {
+          elt.setAttribute('disabled', 'disabled');
+          elt.setAttribute('readonly', 'true');
+        });
         break;
       default:
-        [input, submitBtn].forEach((elt) => elt.removeAttribute('disabled'));
+        [input, submitBtn].forEach((elt) => {
+          elt.removeAttribute('disabled');
+          elt.removeAttribute('readonly');
+        });
         input.focus();
     }
   };
