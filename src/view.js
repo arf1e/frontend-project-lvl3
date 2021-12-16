@@ -107,6 +107,7 @@ const createWatchedState = (state, elements) => {
     }
   });
 
+  elements.input.focus();
   return watchedState;
 };
 export default createWatchedState;
