@@ -17,7 +17,4 @@ lint:
 link:
 	npm link
 
-test-coverage:
-	npm test -- --coverage --coverage-provider=v8
-
 .PHONY: test
