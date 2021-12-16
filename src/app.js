@@ -60,7 +60,8 @@ const app = (state) => {
 
   handleFeedUpdate(watchedState, setState.posts, setState.error);
 
-  const { form } = elements;
+  const { form, input } = elements;
+  input.focus();
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
