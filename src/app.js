@@ -17,8 +17,27 @@ const getElements = () => {
   return elements;
 };
 
-const app = (state) => {
+const generateState = () => {
+  const state = {
+    feeds: [],
+    posts: [],
+    message: null,
+    form: {
+      isValid: true,
+      stage: FORM_STAGES.idle,
+      error: null,
+    },
+    ui: {
+      visitedPosts: [],
+    },
+  };
+
+  return state;
+};
+
+const app = () => {
   const elements = getElements();
+  const state = generateState();
   const watchedState = createWatchedState(state, elements);
 
   const setState = {

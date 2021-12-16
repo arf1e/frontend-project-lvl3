@@ -1,21 +1,15 @@
-import FORM_STAGES from './constants';
+import i18next from 'i18next';
+import ru from './locales/ru';
 
 const init = () => {
-  const state = {
-    feeds: [],
-    posts: [],
-    message: null,
-    form: {
-      isValid: true,
-      stage: FORM_STAGES.idle,
-      error: null,
+  console.log('init');
+  return i18next.init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
     },
-    ui: {
-      visitedPosts: [],
-    },
-  };
-
-  return state;
+  });
 };
 
 export default init;
