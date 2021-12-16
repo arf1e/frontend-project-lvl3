@@ -1,5 +1,4 @@
 import FORM_STAGES from './constants';
-import app from './app';
 
 const init = () => {
   const state = {
@@ -16,7 +15,7 @@ const init = () => {
     },
   };
 
-  app(state);
+  return state;
 };
 
 export default init;
