@@ -1,9 +1,11 @@
+import i18next from 'i18next';
 import createWatchedState from './view';
 import validate from './validate';
 import FORM_STAGES from './constants';
+import ru from './locales/ru';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
 
-const app = (state) => {
+const getElements = () => {
   const form = document.querySelector('.rss-form');
   const input = document.querySelector('#url-input');
   const feedback = document.querySelector('.feedback');
@@ -22,6 +24,11 @@ const app = (state) => {
     modal,
   };
 
+  return elements;
+};
+
+const app = (state) => {
+  const elements = getElements();
   const watchedState = createWatchedState(state, elements);
 
   const setState = {
@@ -53,6 +60,8 @@ const app = (state) => {
 
   handleFeedUpdate(watchedState, setState.posts, setState.error);
 
+  const { form } = elements;
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const url = e.target.url.value;
@@ -65,4 +74,14 @@ const app = (state) => {
   });
 };
 
-export default app;
+export default (state) => {
+  i18next
+    .init({
+      lng: 'ru',
+      debug: true,
+      resources: {
+        ru,
+      },
+    })
+    .then(app(state));
+};

@@ -1,16 +1,6 @@
-import i18next from 'i18next';
-import ru from './locales/ru';
 import FORM_STAGES from './constants';
 
 const init = () => {
-  i18next.init({
-    lng: 'ru',
-    debug: true,
-    resources: {
-      ru,
-    },
-  });
-
   const state = {
     feeds: [],
     posts: [],
