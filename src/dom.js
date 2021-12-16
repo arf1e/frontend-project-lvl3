@@ -1,4 +1,51 @@
 import i18next from 'i18next';
+import _ from 'lodash';
+
+export const resetAndFocusOnInput = (elements) => {
+  const { input } = elements;
+  input.value = '';
+  input.focus();
+};
+
+export const setPostVisited = (value) => {
+  const id = _.last(value);
+  const container = document.querySelector(`.posts .${id}`);
+  const a = container.querySelector('a');
+  a.classList.add('fw-normal');
+  a.classList.remove('fw-bold');
+};
+
+export const setMessage = (value, elements) => {
+  const { feedback } = elements;
+  if (value === null) {
+    feedback.classList.remove('text-success');
+    feedback.textContent = '';
+    return;
+  }
+  feedback.classList.add('text-success');
+  feedback.textContent = value;
+};
+
+export const setIsFormValid = (isValid, prevIsValid, elements) => {
+  const { input } = elements;
+  if (isValid === prevIsValid) return;
+  if (!isValid) {
+    input.classList.add('is-invalid');
+    return;
+  }
+  input.classList.remove('is-invalid');
+};
+
+export const setFormError = (error, elements) => {
+  const { feedback } = elements;
+  if (error === null) {
+    feedback.textContent = '';
+    feedback.classList.remove('text-danger');
+    return;
+  }
+  feedback.textContent = error;
+  feedback.classList.add('text-danger');
+};
 
 const initializeBasicSectionStructure = (title, section) => {
   const h2 = document.createElement('h2');
