@@ -5,3 +5,5 @@ import init from './init';
 
 const state = init();
 app(state);
+
+console.log('index app', typeof app(state));

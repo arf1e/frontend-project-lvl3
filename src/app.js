@@ -1,8 +1,6 @@
-import i18next from 'i18next';
 import createWatchedState from './view';
 import validate from './validate';
 import FORM_STAGES from './constants';
-import ru from './locales/ru';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
 
 const getElements = () => {
@@ -66,14 +64,4 @@ const app = (state) => {
   });
 };
 
-export default (state) => {
-  i18next
-    .init({
-      lng: 'ru',
-      debug: true,
-      resources: {
-        ru,
-      },
-    })
-    .then(() => app(state));
-};
+export default app;
