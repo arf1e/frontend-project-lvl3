@@ -3,8 +3,24 @@ import validate from './validate';
 import FORM_STAGES from './constants';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
 
-const app = (state, elements) => {
-  const { form } = elements;
+const app = (state) => {
+  const form = document.querySelector('.rss-form');
+  const input = document.querySelector('#url-input');
+  const feedback = document.querySelector('.feedback');
+  const submitBtn = document.querySelector('button[type="submit"]');
+  const feedsContainer = document.querySelector('.feeds');
+  const postsContainer = document.querySelector('.posts');
+  const modal = document.querySelector('.modal');
+
+  const elements = {
+    form,
+    input,
+    feedback,
+    submitBtn,
+    feedsContainer,
+    postsContainer,
+    modal,
+  };
 
   const watchedState = createWatchedState(state, elements);
 

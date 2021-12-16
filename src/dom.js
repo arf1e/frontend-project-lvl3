@@ -1,25 +1,5 @@
 import i18next from 'i18next';
 
-export const getElements = () => {
-  const form = document.querySelector('.rss-form');
-  const input = form.querySelector('#url-input');
-  const feedback = document.querySelector('.feedback');
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const feedsContainer = document.querySelector('.feeds');
-  const postsContainer = document.querySelector('.posts');
-  const modal = document.querySelector('.modal');
-
-  return {
-    form,
-    input,
-    feedback,
-    submitBtn,
-    feedsContainer,
-    postsContainer,
-    modal,
-  };
-};
-
 const initializeBasicSectionStructure = (title, section) => {
   const h2 = document.createElement('h2');
   const innerDiv = document.createElement('div');

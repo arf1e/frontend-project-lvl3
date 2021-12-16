@@ -1,9 +1,16 @@
 import i18next from 'i18next';
 import ru from './locales/ru';
 import FORM_STAGES from './constants';
-import { getElements } from './dom';
 
 const init = () => {
+  i18next.init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  });
+
   const state = {
     feeds: [],
     posts: [],
@@ -18,18 +25,7 @@ const init = () => {
     },
   };
 
-  return i18next
-    .init({
-      lng: 'ru',
-      debug: true,
-      resources: {
-        ru,
-      },
-    })
-    .then(() => {
-      const elements = getElements();
-      return { state, elements };
-    });
+  return state;
 };
 
 export default init;
