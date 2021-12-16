@@ -5,7 +5,7 @@ import FORM_STAGES from './constants';
 import ru from './locales/ru';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
 
-const app = (state) => {
+const getElements = () => {
   const elements = {
     form: document.querySelector('.rss-form'),
     input: document.querySelector('#url-input'),
@@ -16,6 +16,11 @@ const app = (state) => {
     modal: document.querySelector('.modal'),
   };
 
+  return elements;
+};
+
+const app = (state) => {
+  const elements = getElements();
   const watchedState = createWatchedState(state, elements);
 
   const setState = {

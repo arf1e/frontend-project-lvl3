@@ -4,4 +4,8 @@ import app from './app';
 import init from './init';
 
 const state = init();
-app(state);
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('loaded');
+  app(state);
+});
