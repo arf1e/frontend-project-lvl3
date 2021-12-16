@@ -5,30 +5,17 @@ import FORM_STAGES from './constants';
 import ru from './locales/ru';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
 
-const getElements = () => {
-  const form = document.querySelector('.rss-form');
-  const input = document.querySelector('#url-input');
-  const feedback = document.querySelector('.feedback');
-  const submitBtn = document.querySelector('button[type="submit"]');
-  const feedsContainer = document.querySelector('.feeds');
-  const postsContainer = document.querySelector('.posts');
-  const modal = document.querySelector('.modal');
-
+const app = (state) => {
   const elements = {
-    form,
-    input,
-    feedback,
-    submitBtn,
-    feedsContainer,
-    postsContainer,
-    modal,
+    form: document.querySelector('.rss-form'),
+    input: document.querySelector('#url-input'),
+    feedback: document.querySelector('.feedback'),
+    submitBtn: document.querySelector('button[type="submit"]'),
+    feedsContainer: document.querySelector('.feeds'),
+    postsContainer: document.querySelector('.posts'),
+    modal: document.querySelector('.modal'),
   };
 
-  return elements;
-};
-
-const app = (state) => {
-  const elements = getElements();
   const watchedState = createWatchedState(state, elements);
 
   const setState = {
