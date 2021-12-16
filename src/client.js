@@ -9,7 +9,7 @@ export default {
   }),
 
   get(url) {
-    return this.client.get(`get?url=${encodeURIComponent(url)}`).catch(() => {
+    return this.client.get(`get?get?disableCache=true&url=${encodeURIComponent(url)}`).catch(() => {
       throw new Error(i18next.t('errors.networkError'));
     });
   },
