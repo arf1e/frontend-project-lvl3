@@ -66,14 +66,13 @@ const app = (state) => {
   });
 };
 
-export default (state) => {
-  i18next
-    .init({
-      lng: 'ru',
-      debug: true,
-      resources: {
-        ru,
-      },
-    })
-    .then(() => app(state));
-};
+// prettier-ignore
+export default (state) => i18next
+  .init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  })
+  .then(() => app(state));
