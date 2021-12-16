@@ -10,7 +10,7 @@ export default {
       networkError: 'Ошибка сети',
     },
     successMessages: {
-      urlLoaded: 'RSS Успешно загружен',
+      urlLoaded: 'RSS успешно загружен',
     },
     titles: {
       feeds: 'Фиды',
