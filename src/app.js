@@ -68,7 +68,8 @@ const app = () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const url = e.target.url.value;
+    const formData = new FormData(form);
+    const url = formData.get('url');
     setState.formStage(FORM_STAGES.submitting);
     validate(url, watchedState.feeds)
       .then((data) => handleAddFeed(data, watchedState, setState, url))
