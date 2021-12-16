@@ -30,5 +30,3 @@ jobs:
           CI: true
       - name: lint
         run: make lint
-      - name: test
-        run: make test
