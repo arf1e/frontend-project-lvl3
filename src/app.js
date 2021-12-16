@@ -23,14 +23,6 @@ const app = (state) => {
   const elements = getElements();
   const watchedState = createWatchedState(state, elements);
 
-  i18next.init({
-    lng: 'ru',
-    debug: true,
-    resources: {
-      ru,
-    },
-  });
-
   const setState = {
     formValid: (valid) => {
       watchedState.form.isValid = valid;
@@ -74,5 +66,14 @@ const app = (state) => {
   });
 };
 
-// prettier-ignore
-export default (state) => app(state);
+export default (state) => {
+  i18next
+    .init({
+      lng: 'ru',
+      debug: true,
+      resources: {
+        ru,
+      },
+    })
+    .then(() => app(state));
+};
