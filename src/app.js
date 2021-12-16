@@ -2,6 +2,7 @@ import createWatchedState from './view';
 import validate from './validate';
 import FORM_STAGES from './constants';
 import handleAddFeed, { handleFeedUpdate } from './handlers';
+import init from './init';
 
 const getElements = () => {
   const elements = {
@@ -17,8 +18,27 @@ const getElements = () => {
   return elements;
 };
 
-const app = (state) => {
+const generateState = () => {
+  const state = {
+    feeds: [],
+    posts: [],
+    message: null,
+    form: {
+      isValid: true,
+      stage: FORM_STAGES.idle,
+      error: null,
+    },
+    ui: {
+      visitedPosts: [],
+    },
+  };
+
+  return state;
+};
+
+const app = () => {
   const elements = getElements();
+  const state = generateState();
   const watchedState = createWatchedState(state, elements);
 
   const setState = {
@@ -65,4 +85,6 @@ const app = (state) => {
   });
 };
 
-export default app;
+const handleApp = () => init().then(app);
+
+export default handleApp;
